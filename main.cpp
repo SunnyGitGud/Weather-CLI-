@@ -35,14 +35,34 @@ std::string getWeatherData(const std::string& cityName, const std::string& apiKe
 
     return jsonResponse;
 }
+std::string extract(const std::string& data, const std::string& key) {
+	size_t keypos = data.find(key);
+	if (keypos == std::string::npos) return "Not Found";
+
+	size_t colonPos = data.find(":", keypos);
+	size_t commaPos = data.find(",", colonPos);
+
+	return data.substr(colonPos + 1, commaPos - colonPos - 1);
+}
+
+
 
 // Main program entry point
 int main() {
-    std::string cityName = "London,uk";
-    std::string apiKey = "7f57de96d21a8624bae5c7c11b44ddfe";
+	std::string city;
+	std::string apiKey = "7f57de96d21a8624bae5c7c11b44ddfe";
+	std::cout << "Enter city: ";
+	std::getline(std::cin, city);
+	std::string weatherJson = getWeatherData(city, apiKey);
 
-    std::string json = getWeatherData(cityName, apiKey); 
+	std::string temp = extract(weatherJson, "\"temp\"");
+	std::string humidity = extract(weatherJson, "\"humidity\"");
+	std::string wind = extract(weatherJson, "\"speed\"");
+	
+    	std::cout << "\n--- Weather in " << city << " ---\n";
+    	std::cout << "Temperature: " << temp << " °C\n";
+    	std::cout << "Humidity: " << humidity << " %\n";
+    	std::cout << "Wind Speed: " << wind << " m/s\n";	
 
-    std::cout << "Raw weather response:\n" << json << std::endl;
-    return 0;
 }
+
