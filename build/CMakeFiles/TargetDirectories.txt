@@ -1,3 +1,0 @@
-/home/sunny/cpp/build/CMakeFiles/WeatherCliGui.dir
-/home/sunny/cpp/build/CMakeFiles/edit_cache.dir
-/home/sunny/cpp/build/CMakeFiles/rebuild_cache.dir
